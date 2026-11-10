@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1d342b">
+    <meta name="theme-color" content="#20264f">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ruang Gaji | Sistem Penggajian</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
     <aside class="sidebar" id="sidebar">
         <a href="#dashboard" class="brand" data-page-link="dashboard" style="text-decoration:none">
             <span class="brand-mark"><svg class="icon"><use href="#i-wallet"/></svg></span>
-            <span>ruang<span style="color:#d8f275">gaji</span><small>PEOPLE & PAYROLL</small></span>
+            <span>ruang<span style="color:#8ee8d0">gaji</span><small>PEOPLE & PAYROLL</small></span>
         </a>
         <div class="side-label">Menu utama</div>
         <nav class="side-nav" aria-label="Navigasi utama">
