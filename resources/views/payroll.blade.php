@@ -55,7 +55,7 @@
         @endif
         <div class="side-spacer"></div>
         <div class="sidebar-help"><svg class="icon"><use href="#i-help"/></svg><div><strong>Butuh bantuan?</strong><span>Tim kami siap membantu Anda.</span></div></div>
-        <div class="profile"><div class="avatar" style="background:#e1ead7;color:#506c41">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($currentUser?->displayName() ?? 'Tamu', 0, 2)) }}</div><div class="profile-copy"><strong>{{ $currentUser?->displayName() ?? 'Tamu' }}</strong><span class="role-tag {{ $isAdmin ? 'admin' : ($isGuest ? 'guest' : 'user') }}">{{ $isAdmin ? 'ADMINISTRATOR' : ($isGuest ? 'AKSES TAMU' : 'USER') }}</span></div><form method="POST" action="{{ $isGuest ? route('guest.exit') : route('logout') }}">@csrf<button class="logout-button" type="submit" aria-label="{{ $isGuest ? 'Kembali ke login' : 'Keluar dari akun' }}">{{ $isGuest ? 'Login' : 'Keluar' }}</button></form></div>
+        <div class="profile"><div class="avatar" style="background:#e1ead7;color:#506c41">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($currentUser?->displayName() ?? 'Tamu', 0, 2)) }}</div><div class="profile-copy"><strong>{{ $currentUser?->displayName() ?? 'Tamu' }}</strong><span class="role-tag {{ $isAdmin ? 'admin' : ($isGuest ? 'guest' : 'user') }}">{{ $isAdmin ? 'ADMINISTRATOR' : ($isGuest ? 'AKSES TAMU' : 'USER') }}</span></div><form method="POST" action="{{ $isGuest ? route('guest.exit') : route('logout') }}">@csrf<button class="logout-button" type="submit" aria-label="{{ $isGuest ? 'Keluar dari mode tamu' : 'Keluar dari akun' }}">Keluar</button></form></div>
     </aside>
     <div class="sidebar-scrim" id="sidebarScrim"></div>
     <main class="main-area">

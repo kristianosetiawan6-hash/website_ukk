@@ -17,7 +17,8 @@ class ExampleTest extends TestCase
         $response->assertOk()
             ->assertSee('AKSES TAMU')
             ->assertSee('Laporan')
-            ->assertSee('Login')
+            ->assertSee('Keluar dari mode tamu')
+            ->assertSee('>Keluar</button>', false)
             ->assertDontSee('Andi Pratama');
         $this->assertGuest();
     }

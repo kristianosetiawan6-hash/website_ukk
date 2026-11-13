@@ -150,6 +150,27 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_guest_dashboard_has_a_clear_logout_action(): void
+    {
+        $this->withSession(['guest_mode' => true])
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('aria-label="Keluar dari mode tamu"', false)
+            ->assertSee('action="'.route('guest.exit').'"', false)
+            ->assertSee('>Keluar</button>', false);
+    }
+
+    public function test_admin_can_log_out(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $this->actingAs($admin)
+            ->post(route('logout'))
+            ->assertRedirect(route('login'));
+
+        $this->assertGuest();
+    }
+
     public function test_visitor_can_cancel_login_and_return_to_the_dashboard(): void
     {
         $this->get(route('login'))
