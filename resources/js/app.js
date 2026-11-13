@@ -193,6 +193,7 @@ payrollDatasetInput?.addEventListener('change', async (event) => {
 	}
 });
 
+const addedDepartments = new Set();
 document.querySelector('#employeeForm')?.addEventListener('submit', (event) => {
 	event.preventDefault();
 	const form = new FormData(event.currentTarget);
@@ -213,6 +214,13 @@ document.querySelector('#employeeForm')?.addEventListener('submit', (event) => {
 	document.querySelector('#employeeTable').prepend(row);
 	document.querySelector('#employeeCount').textContent = Number(document.querySelector('#employeeCount').textContent) + 1;
 	document.querySelector('#employeeCountSecondary').textContent = document.querySelector('#employeeCount').textContent;
+	document.querySelector('#employeeActiveCount').textContent = Number(document.querySelector('#employeeActiveCount').textContent) + 1;
+	document.querySelector('#newEmployeeCount').textContent = Number(document.querySelector('#newEmployeeCount').textContent) + 1;
+	const activePercent = Number(document.querySelector('#employeeActiveCount').textContent)
+		/ Number(document.querySelector('#employeeCount').textContent) * 100;
+	document.querySelector('#employeeActivePercent').textContent = `${activePercent.toLocaleString('id-ID', { maximumFractionDigits: 1 })}%`;
+	addedDepartments.add(department);
+	document.querySelector('#departmentCount').textContent = addedDepartments.size;
 	document.querySelector('#employeeModal').classList.remove('open');
 	event.currentTarget.reset();
 	document.querySelector('#employeeJoinDate').value = '2026-09-30';
@@ -252,6 +260,9 @@ document.querySelector('#confirmPayroll')?.addEventListener('click', async (even
 	const formattedTotal = `Rp${formatRupiah(result.total)}`;
 	document.querySelector('#payrollModal').classList.remove('open');
 	document.querySelector('#processButtonLabel').textContent = 'Penggajian diproses';
+	document.querySelector('#dashboardPayrollSummaryTotal').textContent = formattedTotal;
+	document.querySelector('#dashboardPayrollCardTotal').textContent = formattedTotal;
+	document.querySelector('#dashboardPayrollCardCount').textContent = `${result.count} orang`;
 	document.querySelector('#payrollStatus').textContent = 'Selesai';
 	document.querySelector('#payrollPeriodTotal').textContent = formattedTotal;
 	document.querySelector('#payrollPeriodCount').textContent = `${result.count} orang`;
@@ -368,5 +379,5 @@ document.querySelectorAll('[data-print]').forEach((button) => {
 		printWindow.print();
 	});
 });
-document.querySelector('#notificationButton').addEventListener('click', () => showToast('Anda memiliki 8 pengajuan yang menunggu persetujuan.'));
+document.querySelector('#notificationButton').addEventListener('click', () => showToast('Tidak ada pengajuan yang menunggu persetujuan.'));
 document.querySelector('#settingsButton')?.addEventListener('click', () => showToast('Pengaturan perusahaan siap dikelola.'));
