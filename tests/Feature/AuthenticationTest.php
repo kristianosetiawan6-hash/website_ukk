@@ -95,7 +95,9 @@ class AuthenticationTest extends TestCase
             ->assertSee('Absensi')
             ->assertSee('Pengaturan')
             ->assertSee('Tambah pegawai')
-            ->assertSee('Proses penggajian');
+            ->assertSee('Proses penggajian')
+            ->assertSee('<form class="topbar-logout-form" method="POST" action="'.route('logout').'">', false)
+            ->assertSee('aria-label="Keluar dari akun"', false);
     }
 
     public function test_regular_user_cannot_process_payroll(): void

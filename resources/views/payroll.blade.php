@@ -65,6 +65,9 @@
             <div class="top-actions">
                 <label class="sr-only" for="monthSelect">Periode</label>
                 <select class="period-select" id="monthSelect" aria-label="Pilih periode"><option>September 2026</option><option>Agustus 2026</option><option>Juli 2026</option></select>
+                @auth
+                <form class="topbar-logout-form" method="POST" action="{{ route('logout') }}">@csrf<button class="button secondary topbar-logout" type="submit" aria-label="Keluar dari akun">Keluar</button></form>
+                @endauth
                 <button class="icon-button" id="notificationButton" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg><span class="notification-dot"></span></button>
             </div>
         </header>
