@@ -1,61 +1,128 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ruang Gaji
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ruang Gaji adalah aplikasi web untuk melihat ringkasan penggajian dan menghitung total gaji pegawai dari file CSV. Aplikasi dibuat dengan Laravel 12 dan antarmuka berbahasa Indonesia.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Akses tamu** untuk melihat dashboard dan laporan tanpa masuk.
+- **Login dan pendaftaran akun** dengan peran `User`.
+- Identitas baru yang dikirim melalui form login saat ini otomatis dibuat sebagai akun `User`.
+- **Hak akses Admin** untuk memproses penggajian; User dan Tamu hanya dapat melihat.
+- **Impor dataset CSV** dengan validasi data sebelum penghitungan.
+- **Ringkasan hasil** berupa periode, jumlah pegawai, total gaji, dan status proses.
+- Antarmuka dashboard untuk direktori pegawai, absensi, penggajian, dan laporan.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> **Status pengembangan:** proses penggajian saat ini menghitung ringkasan dan menyimpannya di session, belum menyimpan transaksi payroll ke database. Beberapa bagian dashboard seperti direktori pegawai dan absensi masih berupa prototype antarmuka.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Alur sistem
 
-## Learning Laravel
+![Flowchart Sistem Penggajian](./flowchart-sistem-penggajian.svg)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Teknologi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.2+
+- Laravel 12
+- MySQL
+- Node.js dan npm
+- Vite 7, Tailwind CSS 4
 
-## Laravel Sponsors
+## Menjalankan secara lokal
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Pastikan PHP, Composer, Node.js, npm, dan MySQL sudah tersedia.
 
-### Premium Partners
+1. Clone repository dan masuk ke folder project:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+   ```bash
+   git clone https://github.com/kristianosetiawan6-hash/website_ukk.git
+   cd website_ukk
+   ```
 
-## Contributing
+2. Pasang dependency PHP dan siapkan file environment:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   composer install
+   ```
 
-## Code of Conduct
+   Windows PowerShell:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```powershell
+   Copy-Item .env.example .env
+   ```
 
-## Security Vulnerabilities
+   macOS/Linux:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+   ```bash
+   cp .env.example .env
+   ```
 
-## License
+3. Buat application key. Lalu isi konfigurasi database di `.env`:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   ```bash
+   php artisan key:generate
+   ```
 
-# website_ukk
+   Atur `DB_HOST`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` sesuai database lokal.
+
+4. Buat tabel dan data demo:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. Pasang dependency frontend dan buat aset:
+
+   ```bash
+   npm ci
+   npm run build
+   ```
+
+6. Jalankan aplikasi:
+
+   ```bash
+   php artisan serve
+   ```
+
+   Buka `http://127.0.0.1:8000`.
+
+   Untuk pengembangan frontend dengan Vite, jalankan `npm run dev` di terminal terpisah.
+
+## Akun demo lokal
+
+Setelah menjalankan `php artisan migrate --seed`, akun demo berikut tersedia:
+
+| Peran | Email | Kata sandi |
+|---|---|---|
+| Admin | `admin@ruanggaji.test` | `password` |
+| User | `user@ruanggaji.test` | `password` |
+
+**Akun tersebut hanya untuk pengembangan lokal. Jangan gunakan atau seed kredensial demo ini di server publik.** Form pendaftaran dan pembuatan akun otomatis melalui login hanya menghasilkan User; pembuatan akun Admin harus dilakukan melalui proses administrasi yang tepercaya.
+
+## Format file CSV penggajian
+
+Kolom wajib: `nama` dan `gaji_pokok`. Kolom `tunjangan` dan `potongan` bersifat opsional; jika tidak diisi, nilainya dianggap `0`.
+
+```csv
+nama,gaji_pokok,tunjangan,potongan
+Ayu,5000000,500000,250000
+Budi,7000000,0,500000
+```
+
+Rumus gaji bersih:
+
+```text
+gaji bersih = gaji pokok + tunjangan - potongan
+```
+
+Nilai harus berupa angka nonnegatif, minimal satu baris pegawai harus tersedia, dan potongan tidak boleh melebihi gaji pokok ditambah tunjangan.
+
+## Pengujian
+
+Jalankan test suite Laravel:
+
+```bash
+php artisan test
+```
+
+## Deployment
+
+Panduan deployment ke shared hosting tersedia di [DEPLOY_CPANEL.md](./DEPLOY_CPANEL.md). Jangan unggah file `.env` ke repository publik dan gunakan kredensial database serta `APP_KEY` yang aman untuk server produksi.
